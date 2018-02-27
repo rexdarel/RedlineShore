@@ -1,6 +1,8 @@
 package com.rexdarel.redline.provider;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -16,13 +18,23 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.rexdarel.redline.ChooserActivity;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.recycler.Provider;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
     TextView nav_name, nav_email;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser user;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +44,16 @@ public class DashboardActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser()==null){
+                    startActivity(new Intent(DashboardActivity.this, ChooserActivity.class));
+                }
+            }
+        };
+        user = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +76,24 @@ public class DashboardActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         nav_name = (TextView)header.findViewById(R.id.nav_name);
         nav_email = (TextView)header.findViewById(R.id.nav_email);
+        nav_email.setText(user.getEmail());
+
+        mDatabase.child("providers/" + user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    String name = dataSnapshot.child("name").getValue(String.class);
+                    nav_name.setText(name);
+                }
+                //progressBar.setVisibility(View.INVISIBLE);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //hideProgressDialog();
+            }
+        });
+
     }
 
     @Override
@@ -105,7 +145,7 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            mAuth.signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -116,12 +156,19 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
-    public void updateUI(FirebaseUser user){
-        nav_email.setText(user.getEmail());
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
