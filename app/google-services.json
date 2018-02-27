@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "503630086545",
+    "firebase_url": "https://redline-6a47b.firebaseio.com",
+    "project_id": "redline-6a47b",
+    "storage_bucket": "redline-6a47b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503630086545:android:8611be88faf2b570",
+        "android_client_info": {
+          "package_name": "com.rexdarel.redline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503630086545-cjvt1p8e6dsfvmrvqm5o0224ptleo9jo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rexdarel.redline",
+            "certificate_hash": "2a552e80b4ce18259996f72da25458ae9b84ddc0"
+          }
+        },
+        {
+          "client_id": "503630086545-r4vitvfrors2jjsm8b9ce13pcpr4el3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUsWLbLmSiZAhIx2UOm566J6HqS7kiWps"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503630086545-r4vitvfrors2jjsm8b9ce13pcpr4el3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

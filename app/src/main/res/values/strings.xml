@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Redline</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="get_started">Get Started</string>
+    <string name="title_activity_chooser">ChooserActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="title_activity_register_provider">RegisterProviderActivity</string>
+    <string name="title_activity_check_code">CheckCodeActivity</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
