@@ -89,18 +89,6 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        String recipe[] = {"BLOOD ORANGE CAKE", "SEMIFREDDO TIRAMISU", "MARBLE CAKE", "RICE PUDDING", "RAINBOW CAKE", "ICE CREAM", "STROWBERRY CAKE", "CUPCAKE FRUIT"};
-        String img[] = {"https://images.pexels.com/photos/53468/dessert-orange-food-chocolate-53468.jpeg?h=350&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/159887/pexels-photo-159887.jpeg?h=350&auto=compress",
-                "https://images.pexels.com/photos/136745/pexels-photo-136745.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/39355/dessert-raspberry-leaf-almond-39355.jpeg?h=350&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/239578/pexels-photo-239578.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/8382/pexels-photo.jpg?w=1260&h=750&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/51186/pexels-photo-51186.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb",
-                "https://images.pexels.com/photos/55809/dessert-strawberry-tart-berry-55809.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"};
-        String time[] = {"1h 5'", "30m", "1h 10'", "50m", "20m", "1h 20'", "20m", "1h 20'"};
-        float rating[] = {3, 4, 4, 3, 5, 4, 4, 3};
-
         return itemService;
     }
 
@@ -109,8 +97,6 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(1);
         dialog.setContentView(R.layout.dialog_add_service);
-        //TextView tv_username = (TextView) dialog.findViewById(R.id.username);
-        //tv_username.setText(username);
         final TextInputEditText inputName = (TextInputEditText) dialog.findViewById(R.id.service_name);
         final TextInputEditText inputRequirements = (TextInputEditText) dialog.findViewById(R.id.service_requirements);
         final TextInputEditText inputSchedule = (TextInputEditText) dialog.findViewById(R.id.service_schedule);

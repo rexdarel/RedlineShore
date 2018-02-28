@@ -6,6 +6,7 @@ package com.rexdarel.redline.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,10 @@ import android.widget.TextView;
 //import com.bumptech.glide.Glide;
 //import com.fungeonstudio.diagonline.Detail;
 //import com.fungeonstudio.redline.DetailActivity;
+import com.bumptech.glide.Glide;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.provider.DetailActivity;
+import com.rexdarel.redline.utils.CircleGlide;
 //import com.fungeonstudio.redline.utils.CircleGlide;
 
 import java.util.List;
@@ -35,12 +39,14 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView name;
+        public ImageView imageView;
         ItemClickListener itemClickListener;
 
         public MyViewHolder(View view) {
             super(view);
 
             name = (TextView) view.findViewById(R.id.tv_service_name);
+            imageView = (ImageView) view.findViewById(R.id.iv_service);
 
             view.setOnClickListener(this);
         }
@@ -76,34 +82,38 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         holder.name.setText(itemService.getName());
         //holder.time.setText(itemHospital.getLocation());
         //holder.ratingBar.setRating(3);
-        /*Glide.with(context)
-                .load(itemHospital.getPhoto())
+        Glide.with(context)
+                .load(Uri.parse("https://images.pexels.com/photos/159887/pexels-photo-159887.jpeg?h=350&auto=compress"))
                 .transform(new CircleGlide(context))
-                .into(holder.imageView);*/
+                .into(holder.imageView);
 
-        /*holder.setItemClickListener(new ItemClickListener() {
+        holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int pos) {
                 //OPEN DETAI ACTIVITY
-                openDetailActivity(itemHospital.getName(),itemHospital.getLocation(),itemHospital.getContact(), itemHospital.getDescription(), itemHospital.getPhoto(), itemHospital.getId());
+                openDetailActivity(itemService.getName(), itemService.getDescription(), itemService.getLocation(),
+                        itemService.getPrice(), itemService.getRequirements(), itemService.getSchedule(), itemService.getUid());
             }
-        });*/
+        });
     }
 
     //OPEN DETAIL ACTIVITY
-    /*private void openDetailActivity(String name, String location, String contact, String description, String photo, String id)
+    private void openDetailActivity(String name, String description, String location, float price, String requirements, String schedule, String uid)
     {
-        Intent i=new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, DetailActivity.class);
 
-        i.putExtra("NAME",name);
-        i.putExtra("LOCATION",location);
-        i.putExtra("CONTACT",contact);
-        i.putExtra("DESC",description);
-        i.putExtra("PHOTO", photo);
-        i.putExtra("ID", id);
+        intent.putExtra("NAME",name);
+        intent.putExtra("DESCRIPTION",description);
+        intent.putExtra("LOCATION",location);
+        intent.putExtra("PRICE",price);
+        intent.putExtra("REQUIREMENTS",requirements);
+        intent.putExtra("SCHEDULE",schedule);
+        intent.putExtra("UID",uid);
 
-        context.startActivity(i);
-    }*/
+
+
+        context.startActivity(intent);
+    }
 
     @Override
     public int getItemCount() {
