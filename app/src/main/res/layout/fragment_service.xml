@@ -5,19 +5,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
-<!--    <ProgressBar
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You have no service yet. Click + butoon to add new one."
+        android:visibility="invisible" />
+
+    <ProgressBar
         android:id="@+id/progressBarHome"
         style="@android:style/Widget.Material.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateTint="@color/colorAccent"
-        android:progressTint="@color/colorAccent" />-->
+        android:progressTint="@color/colorAccent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="8dp"
         android:clipToPadding="false"
         android:overScrollMode="never" />
 

@@ -6,6 +6,7 @@ package com.rexdarel.redline.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 //import com.bumptech.glide.Glide;
 //import com.fungeonstudio.diagonline.Detail;
 //import com.fungeonstudio.redline.DetailActivity;
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.rexdarel.redline.R;
 import com.rexdarel.redline.provider.DetailActivity;
@@ -82,10 +85,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         holder.name.setText(itemService.getName());
         //holder.time.setText(itemHospital.getLocation());
         //holder.ratingBar.setRating(3);
-        Glide.with(context)
+        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
+        int color = colorGenerator.getRandomColor();
+
+        TextDrawable.IBuilder iBuilder = TextDrawable.builder().round();
+        TextDrawable drawable = iBuilder.build(String.valueOf(holder.name.getText().charAt(0)), color);
+        holder.imageView.setImageDrawable(drawable);
+        /*Glide.with(context)
                 .load(Uri.parse("https://images.pexels.com/photos/159887/pexels-photo-159887.jpeg?h=350&auto=compress"))
                 .transform(new CircleGlide(context))
-                .into(holder.imageView);
+                .into(holder.imageView);*/
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

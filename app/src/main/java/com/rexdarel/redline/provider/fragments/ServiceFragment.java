@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +43,10 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
     private FirebaseUser user;
     private List<ItemService> itemService = new ArrayList<>();
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private ServiceAdapter mAdapter;
+    private View view;
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,10 +55,12 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        View view = inflater.inflate(R.layout.fragment_service, container, false);
+        view = inflater.inflate(R.layout.fragment_service, container, false);
+        getActivity().setTitle("Services");
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        textView = (TextView) view.findViewById(R.id.textViewStatus);
         mAdapter = new ServiceAdapter(setupService(), getActivity());
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBarHome);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -67,21 +74,36 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
 
     private List<ItemService> setupService(){
         itemService = new ArrayList<>();
-
-        mDatabase.child("services").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("providers/" + user.getUid() + "/services").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
+                    textView.setVisibility(View.INVISIBLE);
                     itemService.clear();
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
-                        ItemService hospital = postSnapShot.getValue(ItemService.class);
-                        itemService.add(hospital);
-                        mAdapter.notifyDataSetChanged();
+                        Object key = postSnapShot.getValue();
+                        mDatabase.child("services/" + key).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+                                        ItemService service = dataSnapshot.getValue(ItemService.class);
+                                        itemService.add(service);
+                                        mAdapter.notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
+                }else{
+                    textView.setVisibility(View.VISIBLE);
                 }
-                //progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
