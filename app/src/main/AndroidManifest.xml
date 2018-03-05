@@ -48,12 +48,13 @@
         <activity
             android:name=".provider.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Full">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rexdarel.redline.provider.DashboardActivity" />
         </activity>
-        <activity android:name=".provider.NewServiceActivity">
+        <activity
+            android:name=".provider.NewServiceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rexdarel.redline.provider.DashboardActivity" />

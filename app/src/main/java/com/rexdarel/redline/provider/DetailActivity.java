@@ -1,12 +1,18 @@
 package com.rexdarel.redline.provider;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.rexdarel.redline.R;
@@ -15,6 +21,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private String name, price, schedule, description, location, requirements;
     private TextView tv_name, tv_price, tv_schedule, tv_description, tv_location, tv_requirements;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +30,18 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(name);
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitleEnabled(false);
 
         tv_name = (TextView) findViewById(R.id.textViewName) ;
         tv_price = (TextView) findViewById(R.id.textViewPrice);
@@ -56,6 +73,13 @@ public class DetailActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    public void changeStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
     }
 
 }
