@@ -16,39 +16,37 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Basic Information"
-            android:textSize="24sp" />
-
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputName"
+                android:id="@+id/service_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="auto"
-                android:hint="Name of Institution"
-                android:inputType="text" />
+                android:hint="Name of Service" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutMobile"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputMobileNumber"
+                android:id="@+id/service_schedule"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mobile Number"
-                android:inputType="phone" />
+                android:hint="Schedule" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/service_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -68,85 +66,35 @@
 
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutTelephone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputTelephoneNumber"
+                android:id="@+id/service_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telephone Number"
-                android:inputType="phone" />
+                android:hint="Location" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutAddress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputAddress"
+                android:id="@+id/service_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Address"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Account Credentials"
-            android:textSize="24sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutEmail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputProviderEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email Address"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputProviderPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputLayoutPasswordAgain"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/inputProviderPasswordAgain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Retype Password"
-                android:inputType="textPassword" />
+                android:lines="4"
+                android:hint="Description (optional)" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonRegisterProviderFinal"
+            android:id="@+id/bt_submit"
             style="@android:style/Widget.Material.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Register" />
+            android:text="SUBMIT" />
     </LinearLayout>
 
 </ScrollView>

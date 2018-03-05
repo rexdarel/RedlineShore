@@ -3,6 +3,7 @@ package com.rexdarel.redline.provider;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hootsuite.nachos.ChipConfiguration;
 import com.hootsuite.nachos.NachoTextView;
 import com.hootsuite.nachos.chip.Chip;
@@ -23,6 +32,7 @@ import com.hootsuite.nachos.terminator.ChipTerminatorHandler;
 import com.hootsuite.nachos.tokenizer.SpanChipTokenizer;
 import com.hootsuite.nachos.validator.ChipifyingNachoValidator;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.recycler.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +44,23 @@ import butterknife.OnClick;
 public class NewServiceActivity extends AppCompatActivity {
 
     private static String TAG = "Nachos";
-    private static String[] SUGGESTIONS = new String[]{"Nachos", "Chip", "Tortilla Chips", "Melted Cheese", "Salsa", "Guacamole", "Cheddar", "Mozzarella", "Mexico", "Jalapeno"};
+    private static String[] SUGGESTIONS = new String[]{"Birth Certificate", "Medical Certificate", "Identification Card"};
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @BindView(R.id.nacho_text_view)
     NachoTextView mNachoTextView;
+    @BindView(R.id.service_name)
+    TextInputEditText inputName;
+    @BindView(R.id.service_description)
+    TextInputEditText inputDescription;
+    @BindView(R.id.service_location)
+    TextInputEditText inputLocation;
+    @BindView(R.id.service_price)
+    TextInputEditText inputPrice;
+    @BindView(R.id.service_schedule)
+    TextInputEditText inputSchedule;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -50,8 +73,12 @@ public class NewServiceActivity extends AppCompatActivity {
 
         List<String> testList = new ArrayList<>();
         testList.add("Birth Certificate");
-        testList.add("Valid ID");
+        testList.add("Identification Card");
         mNachoTextView.setText(testList);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
 
     }
 
@@ -76,6 +103,66 @@ public class NewServiceActivity extends AppCompatActivity {
                 Log.d(TAG, "onChipRemoved: " + chip.getText());
             }
         });*/
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.bt_submit)
+    public void listChipValues(View view) {
+        final List<String> requirements = mNachoTextView.getChipValues();
+
+        String name = inputName.getText().toString();
+        String description = inputDescription.getText().toString();
+        String location = inputLocation.getText().toString();
+        String schedule = inputSchedule.getText().toString();
+        float price = Float.parseFloat(inputPrice.getText().toString());
+
+        DatabaseReference ref = mDatabase.child("services");
+        DatabaseReference newRef = ref.push();
+        final String key = newRef.getKey();
+
+        newRef.setValue(new Service(user.getUid(), name, schedule, location, description, price))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        DatabaseReference revRef = mDatabase.child("providers/" + user.getUid() + "/services");
+                        DatabaseReference pRev = revRef.push();
+                        pRev.setValue(key).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                for (int i = 0; i < requirements.size(); i++){
+                                    DatabaseReference ref = mDatabase.child("providers/" + user.getUid() + "/requirements");
+                                    DatabaseReference newRef = ref.push();
+                                    final String key = newRef.getKey();
+
+                                    newRef.setValue(requirements.get(i)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(NewServiceActivity.this, "Success adding service", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(NewServiceActivity.this, "Trouble adding requirements", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(NewServiceActivity.this, "Trouble adding service", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(NewServiceActivity.this, "Error adding service", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 /*    @SuppressWarnings("unused")
