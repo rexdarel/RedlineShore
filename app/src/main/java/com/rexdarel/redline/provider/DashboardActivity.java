@@ -31,6 +31,7 @@ import com.rexdarel.redline.R;
 import com.rexdarel.redline.provider.fragments.LogoutFragment;
 import com.rexdarel.redline.provider.fragments.ProfileFragment;
 import com.rexdarel.redline.provider.fragments.ServiceFragment;
+import com.rexdarel.redline.provider.fragments.SettingsFragment;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -143,7 +144,7 @@ public class DashboardActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             fragmentClass = ProfileFragment.class;
         } else if (id == R.id.nav_settings) {
-
+            fragmentClass = SettingsFragment.class;
         } else if (id == R.id.nav_logout) {
             fragmentClass = LogoutFragment.class;
             mAuth.signOut();

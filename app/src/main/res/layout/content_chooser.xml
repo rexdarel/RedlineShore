@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rexdarel.redline.ChooserActivity"
     tools:showIn="@layout/activity_chooser">
 
-    <LinearLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:padding="@dimen/spacing_xxxlarge"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView"
+        android:layout_height="match_parent">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingBottom="20dp"
-            android:text="You must have an account to use the app." />
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/spacing_xxlarge"
+                android:paddingRight="@dimen/spacing_xxlarge"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonSignInChooser"
-            style="@android:style/Widget.Material.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sign In" />
+                <!--<TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:paddingBottom="20dp"
+                    android:text="You must have an account to use the app." />-->
 
-        <Button
-            android:id="@+id/buttonRegisterChooser"
-            style="@android:style/Widget.Material.Button.Colored"
-            android:backgroundTint="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Register New Account" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/buttonSignInChooser"
+                    style="@android:style/Widget.Material.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In" />
 
-</RelativeLayout>
+                <Button
+                    android:id="@+id/buttonRegisterChooser"
+                    style="@android:style/Widget.Material.Button.Colored"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Register New Account" />
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

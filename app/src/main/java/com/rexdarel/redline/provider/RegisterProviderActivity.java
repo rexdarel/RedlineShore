@@ -27,8 +27,8 @@ import com.rexdarel.redline.recycler.Provider;
 public class RegisterProviderActivity extends AppCompatActivity {
 
     private Button btnRegister;
-    private TextInputEditText inputName, inputMobileNumber, inputTelephoneNumber, inputAddress, inputEmail, inputPassword;
-    private String name, mobileNumber, telephoneNumber, address, email, password;
+    private TextInputEditText inputName, inputMobileNumber, inputTelephoneNumber, inputAddress, inputEmail, inputPassword, inputPasswordAgain;
+    private String name, mobileNumber, telephoneNumber, address, email, password, passwordAgain;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -37,6 +37,7 @@ public class RegisterProviderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_provider);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Register");
         setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
@@ -49,6 +50,7 @@ public class RegisterProviderActivity extends AppCompatActivity {
         inputTelephoneNumber = (TextInputEditText) findViewById(R.id.inputTelephoneNumber);
         inputName = (TextInputEditText) findViewById(R.id.inputName);
         inputPassword = (TextInputEditText) findViewById(R.id.inputProviderPassword);
+        inputPasswordAgain = (TextInputEditText) findViewById(R.id.inputProviderPasswordAgain);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,17 +62,46 @@ public class RegisterProviderActivity extends AppCompatActivity {
 
     public void registerProvider(){
         TextInputLayout firstInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutName);
+        TextInputLayout secondInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutMobile);
+        TextInputLayout thirdInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutTelephone);
+        TextInputLayout fourthInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutAddress);
+        TextInputLayout fifthInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutEmail);
+        TextInputLayout sixthInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
+        TextInputLayout seventhInputLayout = (TextInputLayout) findViewById(R.id.inputLayoutPasswordAgain);
+
         firstInputLayout.setError(null);
+        secondInputLayout.setError(null);
+        thirdInputLayout.setError(null);
+        fourthInputLayout.setError(null);
+        fifthInputLayout.setError(null);
+        sixthInputLayout.setError(null);
+        seventhInputLayout.setError(null);
+
         name = inputName.getText().toString();
         mobileNumber = inputMobileNumber.getText().toString();
         telephoneNumber = inputTelephoneNumber.getText().toString();
         address = inputAddress.getText().toString();
         email = inputEmail.getText().toString();
         password = inputPassword.getText().toString();
+        passwordAgain = inputPasswordAgain.getText().toString();
 
         if(name.isEmpty()) {
             firstInputLayout.setError("This field is required");
-        }else{
+        }else if (mobileNumber.isEmpty()){
+            secondInputLayout.setError("This field is required");
+        }else if (telephoneNumber.isEmpty()){
+            thirdInputLayout.setError("This field is required");
+        }else if (address.isEmpty()){
+            fourthInputLayout.setError("This field is required");
+        }else if (email.isEmpty()){
+            fifthInputLayout.setError("This field is required");
+        }else if (password.isEmpty()){
+            sixthInputLayout.setError("This field is required");
+        }else if(passwordAgain.isEmpty()){
+            seventhInputLayout.setError("This field is required");
+        }else if(!password.equals(passwordAgain)){
+            seventhInputLayout.setError("Passwords must be equal");
+        } else{
             mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override

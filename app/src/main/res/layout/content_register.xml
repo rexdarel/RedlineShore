@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/spacing_xxxlarge"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rexdarel.redline.RegisterActivity"
     tools:showIn="@layout/activity_register">
@@ -13,17 +14,23 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/spacing_xmedium"
+        android:text="I am" />
 
     <Button
         android:id="@+id/buttonRegisterUser"
+        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Looking For Health Services" />
 
     <Button
         android:id="@+id/buttonRegisterProvider"
+        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
         android:text="A Health Provider" />
 </LinearLayout>

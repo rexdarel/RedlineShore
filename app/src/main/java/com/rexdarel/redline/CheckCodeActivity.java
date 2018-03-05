@@ -23,6 +23,7 @@ public class CheckCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_code);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Verification");
         setSupportActionBar(toolbar);
 
         btnCheckCode = (Button) findViewById(R.id.buttonCheckCode);

@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Register New Account");
         setSupportActionBar(toolbar);
 
         btnRegisterUser = (Button) findViewById(R.id.buttonRegisterUser);

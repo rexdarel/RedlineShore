@@ -21,25 +21,27 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Intent intent = this.getIntent();
-        name = intent.getExtras().getString("NAME");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        tv_name = (TextView) findViewById(R.id.textViewName) ;
         tv_price = (TextView) findViewById(R.id.textViewPrice);
-        tv_schedule = (TextView) findViewById(R.id.textiewSchedule);
+        tv_schedule = (TextView) findViewById(R.id.textViewSchedule);
         tv_requirements = (TextView) findViewById(R.id.textViewRequirements);
         tv_location = (TextView) findViewById(R.id.textViewLocation);
         tv_description = (TextView) findViewById(R.id.textViewDescription);
 
 
+        name = intent.getExtras().getString("NAME");
         price = String.valueOf(intent.getExtras().getFloat("PRICE"));
         schedule = intent.getExtras().getString("SCHEDULE");
         requirements = intent.getExtras().getString("REQUIREMENTS");
         location = intent.getExtras().getString("LOCATION");
         description = intent.getExtras().getString("DESCRIPTION");
 
+        tv_name.setText(name);
         tv_price.setText("Php " + price);
         tv_schedule.setText(schedule);
         tv_requirements.setText(requirements);

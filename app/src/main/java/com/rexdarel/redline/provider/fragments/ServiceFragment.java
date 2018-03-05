@@ -1,6 +1,7 @@
 package com.rexdarel.redline.provider.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.provider.NewServiceActivity;
 import com.rexdarel.redline.recycler.ItemService;
 import com.rexdarel.redline.recycler.Service;
 import com.rexdarel.redline.recycler.ServiceAdapter;
@@ -116,7 +118,9 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        final Dialog dialog = new Dialog(getContext());
+        Intent intent = new Intent(getContext(), NewServiceActivity.class);
+        startActivity(intent);
+        /*final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(1);
         dialog.setContentView(R.layout.dialog_add_service);
         final TextInputEditText inputName = (TextInputEditText) dialog.findViewById(R.id.service_name);
@@ -130,7 +134,7 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
         layoutParams.copyFrom(dialog.getWindow().getAttributes());
         layoutParams.width = -2;
         layoutParams.height = -2;
-        /*ImageView imageView = (ImageView) dialog.findViewById(R.id.user_image);
+        *//*ImageView imageView = (ImageView) dialog.findViewById(R.id.user_image);
         if(photoUrl != null) {
             Glide.with(DetailActivity.this)
                     .load(photoUrl)
@@ -150,7 +154,7 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
                 dialog.dismiss();
             }
         });
-        */
+        *//*
         ((AppCompatButton) dialog.findViewById(R.id.bt_submit)).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
@@ -188,6 +192,6 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
             }
         });
         dialog.show();
-        dialog.getWindow().setAttributes(layoutParams);
+        dialog.getWindow().setAttributes(layoutParams);*/
     }
 }
