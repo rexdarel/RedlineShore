@@ -62,7 +62,15 @@
         <activity
             android:name=".user.UserActivity"
             android:label="@string/title_activity_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".user.DetailActivity"
+            android:theme="@style/Full"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rexdarel.redline.user.UserActivity" />
+        </activity>
     </application>
 
 </manifest>

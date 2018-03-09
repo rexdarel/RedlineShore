@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 //import com.fungeonstudio.diagonline.Detail;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.user.DetailActivity;
 import com.rexdarel.redline.utils.CircleGlide;
 
 import java.util.List;
@@ -89,13 +90,13 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
             @Override
             public void onItemClick(int pos) {
                 //OPEN DETAI ACTIVITY
-                //openDetailActivity(itemHospital.getName(),itemHospital.getLocation(),itemHospital.getContact(), itemHospital.getDescription(), itemHospital.getPhoto(), itemHospital.getId());
+                openDetailActivity(itemHospital.getName(),itemHospital.getLocation(),itemHospital.getContact(), itemHospital.getDescription(), itemHospital.getPhoto(), itemHospital.getId());
             }
         });
     }
 
     //OPEN DETAIL ACTIVITY
-    /*private void openDetailActivity(String name, String location, String contact, String description, String photo, String id)
+    private void openDetailActivity(String name, String location, String contact, String description, String photo, String id)
     {
         Intent i=new Intent(context, DetailActivity.class);
 
@@ -107,7 +108,7 @@ public class HospitalAdapter extends RecyclerView.Adapter<HospitalAdapter.MyView
         i.putExtra("ID", id);
 
         context.startActivity(i);
-    }*/
+    }
 
     @Override
     public int getItemCount() {
