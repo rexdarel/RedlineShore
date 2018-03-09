@@ -62,7 +62,8 @@
 
                 <Button
                     android:id="@+id/buttonSignIn"
-                    style="@android:style/Widget.Material.Button.Colored"
+                    android:textColor="@color/cardview_light_background"
+                    android:backgroundTint="@color/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

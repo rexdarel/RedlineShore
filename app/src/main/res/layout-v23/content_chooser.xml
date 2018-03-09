@@ -34,18 +34,17 @@
 
                 <Button
                     android:id="@+id/buttonSignInChooser"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
-                    android:textColor="@color/cardview_light_background"
                     android:text="Sign In" />
 
                 <Button
                     android:id="@+id/buttonRegisterChooser"
-                    android:backgroundTint="@color/colorPrimary"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/cardview_light_background"
+                    android:backgroundTint="@color/colorPrimary"
                     android:text="Register New Account" />
             </LinearLayout>
         </RelativeLayout>

@@ -120,7 +120,7 @@ public class NewServiceActivity extends AppCompatActivity {
         DatabaseReference newRef = ref.push();
         final String key = newRef.getKey();
 
-        newRef.setValue(new Service(user.getUid(), name, schedule, location, description, price))
+        newRef.setValue(new Service(user.getUid(), name, schedule, location, description, price, key))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -130,7 +130,7 @@ public class NewServiceActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 for (int i = 0; i < requirements.size(); i++){
-                                    DatabaseReference ref = mDatabase.child("providers/" + user.getUid() + "/requirements");
+                                    DatabaseReference ref = mDatabase.child("services/" + key + "/requirements");
                                     DatabaseReference newRef = ref.push();
                                     final String key = newRef.getKey();
 

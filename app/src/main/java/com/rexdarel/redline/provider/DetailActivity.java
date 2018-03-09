@@ -8,20 +8,34 @@ import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rexdarel.redline.R;
+import com.rexdarel.redline.provider.fragments.UpdateServiceFragment;
+
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private String name, price, schedule, description, location, requirements;
     private TextView tv_name, tv_price, tv_schedule, tv_description, tv_location, tv_requirements;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    ArrayList<String> itemRequirement = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +43,11 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
         Intent intent = this.getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(name);
-        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        toolbar.setTitle("Detail");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitleEnabled(false);
+        final ArrayAdapter<String> adapter;
 
         tv_name = (TextView) findViewById(R.id.textViewName) ;
         tv_price = (TextView) findViewById(R.id.textViewPrice);
@@ -51,35 +57,72 @@ public class DetailActivity extends AppCompatActivity {
         tv_description = (TextView) findViewById(R.id.textViewDescription);
 
 
-        name = intent.getExtras().getString("NAME");
-        price = String.valueOf(intent.getExtras().getFloat("PRICE"));
-        schedule = intent.getExtras().getString("SCHEDULE");
-        requirements = intent.getExtras().getString("REQUIREMENTS");
-        location = intent.getExtras().getString("LOCATION");
-        description = intent.getExtras().getString("DESCRIPTION");
+        final String NAME = intent.getExtras().getString("NAME");
+        final String PRICE = String.valueOf(intent.getExtras().getFloat("PRICE"));
+        final String SCHEDULE = intent.getExtras().getString("SCHEDULE");
+        final String LOCATION = intent.getExtras().getString("LOCATION");
+        final String DESC = intent.getExtras().getString("DESCRIPTION");
+        final String KEY = intent.getExtras().getString("KEY");
 
-        tv_name.setText(name);
-        tv_price.setText("Php " + price);
-        tv_schedule.setText(schedule);
-        tv_requirements.setText(requirements);
-        tv_location.setText(location);
-        tv_description.setText(description);
+        DatabaseReference mDatabase;
+        FirebaseAuth mAuth;
+        FirebaseUser user;
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                itemRequirement);
+        final ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
+
+        mDatabase.child("services/" + KEY + "/requirements").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot postSnapShot:dataSnapshot.getChildren()) {
+                        itemRequirement.add(postSnapShot.getValue().toString());
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        tv_name.setText(NAME);
+        tv_price.setText("Php " + PRICE);
+        tv_schedule.setText(SCHEDULE);
+        tv_requirements.setText(KEY);
+        tv_location.setText(LOCATION);
+        tv_description.setText(DESC);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                UpdateServiceFragment newFragment = new UpdateServiceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("NAME", NAME);
+                bundle.putString("SCHEDULE", SCHEDULE);
+                bundle.putString("PRICE", PRICE);
+                bundle.putString("LOCATION", LOCATION);
+                bundle.putString("DESCRIPTION", DESC);
+                bundle.putString("KEY", KEY);
+                bundle.putStringArrayList("REQUIREMENTS", itemRequirement);
+                newFragment.setArguments(bundle);
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.add(android.R.id.content, newFragment).addToBackStack(null).commit();
             }
         });
-    }
-    public void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
     }
 
 }

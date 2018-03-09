@@ -85,7 +85,7 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
                     itemService.clear();
                     for(DataSnapshot postSnapShot:dataSnapshot.getChildren())
                     {
-                        Object key = postSnapShot.getValue();
+                        String key = postSnapShot.getValue().toString();
                         mDatabase.child("services/" + key).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

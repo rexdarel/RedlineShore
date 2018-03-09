@@ -22,11 +22,19 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.rexdarel.redline.R;
 import com.rexdarel.redline.provider.DetailActivity;
 import com.rexdarel.redline.utils.CircleGlide;
 //import com.fungeonstudio.redline.utils.CircleGlide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,13 +109,13 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
             public void onItemClick(int pos) {
                 //OPEN DETAI ACTIVITY
                 openDetailActivity(itemService.getName(), itemService.getDescription(), itemService.getLocation(),
-                        itemService.getPrice(), itemService.getRequirements(), itemService.getSchedule(), itemService.getUid());
+                        itemService.getPrice(), itemService.getSchedule(), itemService.getUid(), itemService.getKey());
             }
         });
     }
 
     //OPEN DETAIL ACTIVITY
-    private void openDetailActivity(String name, String description, String location, float price, String requirements, String schedule, String uid)
+    private void openDetailActivity(String name, String description, String location, float price, String schedule, String uid, String key)
     {
         Intent intent = new Intent(context, DetailActivity.class);
 
@@ -115,9 +123,9 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         intent.putExtra("DESCRIPTION",description);
         intent.putExtra("LOCATION",location);
         intent.putExtra("PRICE",price);
-        intent.putExtra("REQUIREMENTS",requirements);
         intent.putExtra("SCHEDULE",schedule);
         intent.putExtra("UID",uid);
+        intent.putExtra("KEY", key);
 
 
 

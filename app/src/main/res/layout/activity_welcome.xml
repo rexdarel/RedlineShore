@@ -31,7 +31,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="385dp"
+                android:layout_height="fill_parent"
                 android:layout_alignParentBottom="true"
                 app:srcCompat="@drawable/bg_no_item_city" />
             <LinearLayout
@@ -42,7 +42,8 @@
 
                 <Button
                     android:id="@+id/buttonGetStarted"
-                    style="@android:style/Widget.Material.Button.Colored"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textColor="@color/cardview_light_background"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

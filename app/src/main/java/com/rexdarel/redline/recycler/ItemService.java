@@ -5,7 +5,7 @@ package com.rexdarel.redline.recycler;
  */
 
 public class ItemService {
-    public String name, requirements, schedule, location, description, uid;
+    public String name, schedule, location, description, uid, key;
     public float price;
 
     public String getName() {
@@ -14,14 +14,6 @@ public class ItemService {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(String requirements) {
-        this.requirements = requirements;
     }
 
     public String getSchedule() {
@@ -62,5 +54,13 @@ public class ItemService {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

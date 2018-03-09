@@ -21,16 +21,17 @@
 
     <Button
         android:id="@+id/buttonRegisterUser"
-        style="@android:style/Widget.Material.Button.Colored"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Looking For Health Services" />
 
     <Button
         android:id="@+id/buttonRegisterProvider"
-        style="@android:style/Widget.Material.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/cardview_light_background"
         android:text="A Health Provider" />
 </LinearLayout>
