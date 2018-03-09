@@ -41,4 +41,5 @@
     <string name="btn_list_chip_and_token_values">List Chip and Token Values</string>
     <string name="btn_to_string">toString()</string>
     <string name="btn_steal_focus">Touch to steal focus and chipify text</string>
+    <string name="title_activity_user">UserActivity</string>
 </resources>

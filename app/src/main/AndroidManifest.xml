@@ -58,7 +58,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rexdarel.redline.provider.DashboardActivity" />
         </activity>
-        <activity android:name=".provider.UpdateServiceActivity"></activity>
+        <activity android:name=".provider.UpdateServiceActivity" />
+        <activity
+            android:name=".user.UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

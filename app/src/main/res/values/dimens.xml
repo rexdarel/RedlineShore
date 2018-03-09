@@ -7,6 +7,14 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="space8">8dp</dimen>
+    <dimen name="space16">16dp</dimen>
+    <dimen name="space24">24dp</dimen>
+    <dimen name="space56">56dp</dimen>
+    <dimen name="h1">22dp</dimen>
+    <dimen name="h2">18dp</dimen>
+    <dimen name="h3">14dp</dimen>
+
     <dimen name="spacing_large">15dp</dimen>
     <dimen name="spacing_medium">5dp</dimen>
     <dimen name="spacing_middle">10dp</dimen>

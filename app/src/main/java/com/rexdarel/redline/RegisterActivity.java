@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.rexdarel.redline.provider.RegisterProviderActivity;
+import com.rexdarel.redline.user.UserActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegisterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openUserActivity();
             }
         });
 
@@ -43,6 +44,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void openCheckCodeActivity(){
         Intent intent = new Intent(this, CheckCodeActivity.class);
+        startActivity(intent);
+    }
+
+    public void openUserActivity(){
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
 
