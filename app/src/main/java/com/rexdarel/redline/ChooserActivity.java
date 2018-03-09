@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.rexdarel.redline.provider.RegisterProviderActivity;
 import com.rexdarel.redline.recycler.Service;
+import com.rexdarel.redline.user.UserActivity;
 
 public class ChooserActivity extends AppCompatActivity {
 
@@ -67,6 +68,14 @@ public class ChooserActivity extends AppCompatActivity {
 
             public void onClick(View view) {
                 Intent intent = new Intent(ChooserActivity.this, RegisterProviderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ((AppCompatButton) dialog.findViewById(R.id.buttonRegisterUser)).setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                Intent intent = new Intent(ChooserActivity.this, UserActivity.class);
                 startActivity(intent);
             }
         });
